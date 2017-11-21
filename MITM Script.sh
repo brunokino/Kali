@@ -103,17 +103,15 @@ xterm -geometry 75x15+1+600 -T SSLStrip-Log -e tail -f sslstrip.log & sslstriplo
 clear
 echo
 echo "[+] Activated..."
-echo "Airssl is now running, after slave connects and surfs their credentials will be displayed in ettercap. You may use right/left mouse buttons to scroll up/down ettercaps xterm shell, ettercap will also save its output to /pentest/wireless/airssl/passwords unless you stated otherwise. Driftnet images will be saved to /pentest/wireless/airssl/driftftnetdata "
 echo
 echo "[+] IMPORTANT..."
-echo "After you have finished please close airssl and clean up properly by hitting Y,
-if airssl is not closed properly ERRORS WILL OCCUR "
+echo "After you have finished please stop the attack properly by hitting (Y)"
 read WISH
 
 # Clean up
 if [ $WISH = "y" ] ; then
 echo
-echo "[+] Cleaning up airssl and resetting iptables..."
+echo "[+] Stop attack and resetting iptables..."
 
 kill ${fakeapid}
 kill ${dchpid}
@@ -131,7 +129,6 @@ iptables --delete-chain
 iptables --table nat --delete-chain
 
 echo "[+] Clean up successful..."
-echo "[+] Thank you for using airssl, Good Bye..."
 exit
 
 fi
